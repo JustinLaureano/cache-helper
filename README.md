@@ -1,3 +1,5 @@
+Cache helper class
+
 ```php
 
 use Illuminate\Support\Facades\Cache;
@@ -13,6 +15,8 @@ class CacheHelper
 ```
 
 
+contract to implement
+
 ```php
 
 interface ResourceCacheContract
@@ -24,10 +28,11 @@ interface ResourceCacheContract
 
 ```
 
+resource using the contract
 
 ```php
 
-class LocalResource implements ResourceCacheContract
+class LocalResource extends PackageResource implements ResourceCacheContract
 {
     public function getCacheKey()
     {
@@ -47,6 +52,7 @@ class LocalResource implements ResourceCacheContract
 
 ```
 
+calling the cache helper
 
 ```php
 
