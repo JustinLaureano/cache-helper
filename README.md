@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CacheHelper
 {
-    public static method remember($resource)
+    public static function remember($resource)
     {
         $cacheContract = self::getResourceCacheContract($resource);
 
