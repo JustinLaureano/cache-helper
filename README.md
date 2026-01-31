@@ -37,6 +37,8 @@ class CacheHelper
             throw InvalidClassException();
         }
 
+        $contract->initialize($resource);
+
         return $contract;
     }
 }
