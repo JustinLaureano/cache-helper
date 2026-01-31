@@ -67,7 +67,7 @@ class CommunityCacheContract implements ResourceCacheContract
 {
     public function getCacheKey()
     {
-        return 'resource_id_'. $this->id;
+        return 'community_id_'. $this->id;
     }
 
     public function getCacheDuration()
