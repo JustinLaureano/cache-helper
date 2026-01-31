@@ -61,6 +61,8 @@ resource using the contract
 
 ```php
 
+namespace App\Contracts\Cache;
+
 class CommunityCacheContract implements ResourceCacheContract
 {
     public function getCacheKey()
