@@ -77,7 +77,7 @@ class CommunityCacheContract implements ResourceCacheContract
 
     public function getCacheCallback()
     {
-        return ResourceService::fetchApiData();
+        return CommunityService::fetchApiData();
     }
 }
 
