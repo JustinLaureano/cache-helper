@@ -6,9 +6,38 @@ use Illuminate\Support\Facades\Cache;
 
 class CacheHelper
 {
-    public static method remember(ResourceCacheContract $resource)
+    public static method remember($resource)
     {
-        Cache::remember($resource->getCacheKey(), $resource->getCacheDuration(), $resource->getCacheCallback);
+        $cacheContract = self::getResourceCacheContract($resource);
+
+        Cache::remember(
+            $cacheContract->getCacheKey(),
+            $cacheContract->getCacheDuration(),
+            $cacheContract->getCacheCallback
+        );
+    }
+
+    private function getResouceCacheContract($resource)
+    {
+        if (! is_object($resource)) {
+            throw Exception();
+        }
+
+        $resourceClass = class_basename( get_class($resource) );
+
+        $contractClass = "App\\Contracts\\Cache\\{$resourceClass}CacheContract";
+
+        if (! class_exists($contractClass)) {
+            throw ClassNotExistsException();
+        }
+
+        $contract = new $contractClass();
+
+        if (! $contract instanceof ResourceCacheContract) {
+            throw InvalidClassException();
+        }
+
+        return $contract;
     }
 }
 
@@ -32,7 +61,7 @@ resource using the contract
 
 ```php
 
-class LocalResource extends PackageResource implements ResourceCacheContract
+class CommunityCacheContract implements ResourceCacheContract
 {
     public function getCacheKey()
     {
@@ -56,8 +85,8 @@ calling the cache helper
 
 ```php
 
-$localResource = new LocalResource();
+$resource = new Community();
 
-CacheHelper::remember($localResource);
+CacheHelper::remember($resource);
 
 ```
