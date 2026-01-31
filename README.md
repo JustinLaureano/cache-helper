@@ -50,6 +50,7 @@ contract to implement
 
 interface ResourceCacheContract
 {
+    public function initialize($resource);
     public function getCacheKey();
     public function getCacheDuration();
     public function getCacheCallback();
@@ -65,9 +66,14 @@ namespace App\Contracts\Cache;
 
 class CommunityCacheContract implements ResourceCacheContract
 {
+    public function initialize($resource)
+    {
+        $this->resource = $resource;
+    }
+
     public function getCacheKey()
     {
-        return 'community_id_'. $this->id;
+        return 'community_id_'. $this->resource->id;
     }
 
     public function getCacheDuration()
